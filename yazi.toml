@@ -1,0 +1,69 @@
+# ~/.config/yazi/yazi.toml
+
+[manager]
+
+show_hidden     =   false
+ratio           =   [1, 2, 3]
+sort_by         =   "extension"
+sort_dir_first  =   true
+linemode        =   "permissions"
+
+
+[opener]
+# Editor de texto con Neovim
+edit = [
+  { run = 'nvim "$@"', block = true, for = "unix" }
+]
+
+# Visualizador de imágenes con Eye of GNOME
+img = [
+  { run = 'eog "$@"', orphan = true, for = "unix" }
+]
+
+# Reproductor multimedia con MPV
+play = [
+  { run = 'mpv "$@"', orphan = true, for = "unix" }
+]
+
+# PDFs con zathura
+pdf = [
+  { run = 'zathura "$@"', orphan = true, for = "unix" }
+]
+
+# Abrir por defecto (fallback)
+default = [
+  { run = 'xdg-open "$@"', orphan = true, desc = "Abrir por defecto" }
+]
+
+[open]
+
+rules = [
+  # Archivos de texto
+  { mime = "text/*", use = "edit" },
+  { name = "*.md", use = "edit" },
+  { name = "*.txt", use = "edit" },
+
+  # Imágenes
+  { mime = "image/*", use = "img" },
+  { name = "*.png", use = "img" },
+  { name = "*.jpg", use = "img" },
+  { name = "*.jpeg", use = "img" },
+  { name = "*.webp", use = "img" },
+
+  # Video/audio
+  { mime = "video/*", use = "play" },
+  { mime = "audio/*", use = "play" },
+  { name = "*.mp4", use = "play" },
+  { name = "*.mkv", use = "play" },
+  { name = "*.mp3", use = "play" },
+  { name = "*.flac", use = "play" },
+  
+  # Archivos PDF
+  { mime = "application/pdf", use = "pdf" },
+  { name = "*.pdf", use = "pdf" },
+
+  # Cualquier otro archivo
+  { name = "*", use = "default" }
+]
+
+
